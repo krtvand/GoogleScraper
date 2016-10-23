@@ -3,28 +3,19 @@
 
 from GoogleScraper import scrape_with_config, GoogleSearchError
 
-keywords = [
-    'alpha ',
-    'beta',
-    'yankee'
-]
+keywords = ['site:*.rossvyaz.ru -www.rossvyaz.ru']
 
 # See in the config.cfg file for possible values
 config = {
     'use_own_ip': True,
     'keywords': keywords,
-    'search_engines': ['baidu', 'duckduckgo'],
+    #'keyword_file': '../gov_req.txt',
+    'search_engines': 'google',
     'num_pages_for_keyword': 2,
     'scrape_method': 'selenium',
     'sel_browser': 'chrome',
+    'print_results': 'summarize',
+    'clean_cache_files': False
 }
 
-try:
-    search = scrape_with_config(config)
-except GoogleSearchError as e:
-    print(e)
-
-for serp in search.serps:
-    print(serp)
-    for link in serp.links:
-        print(link)
+search = scrape_with_config(config)

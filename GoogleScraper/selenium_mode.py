@@ -455,6 +455,7 @@ class SelScrape(SearchEngineScrape, threading.Thread):
                 WebDriverWait(self.webdriver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, selector)))
             except (WebDriverException, TimeoutException) as e:
                 self._save_debug_screenshot()
+                #return False
                 raise Exception('{}: Cannot locate next page element: {}'.format(self.name, str(e)))
 
             return self.webdriver.find_element_by_css_selector(selector)
@@ -497,10 +498,13 @@ class SelScrape(SearchEngineScrape, threading.Thread):
                     WebDriverWait(self.webdriver, 5).\
             until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, selector), str(self.page_number)))
                 except TimeoutException as e:
+                    return False
+                    """
                     self._save_debug_screenshot()
                     content = self.webdriver.find_element_by_css_selector(selector).text
                     raise Exception('Pagenumber={} did not appear in navigation. Got "{}" instead'\
                                     .format(self.page_number), content)
+                    """
 
         elif self.search_type == 'image':
             self.wait_until_title_contains_keyword()
@@ -615,8 +619,10 @@ class SelScrape(SearchEngineScrape, threading.Thread):
     def run(self):
         """Run the SelScraper."""
 
-        self._set_xvfb_display()
-
+        #self._set_xvfb_display()
+        from pyvirtualdisplay import Display
+        display = Display(visible=0, size=(800, 600))
+        display.start()
         if not self._get_webdriver():
             raise Exception('{}: Aborting due to no available selenium webdriver.'.format(self.name))
 
