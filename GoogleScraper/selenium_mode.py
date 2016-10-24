@@ -454,9 +454,10 @@ class SelScrape(SearchEngineScrape, threading.Thread):
                 # wait until the next page link is clickable
                 WebDriverWait(self.webdriver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, selector)))
             except (WebDriverException, TimeoutException) as e:
-                self._save_debug_screenshot()
-                #return False
-                raise Exception('{}: Cannot locate next page element: {}'.format(self.name, str(e)))
+                # We should return boolean to correctly handle lack of next page button
+                return False
+                #self._save_debug_screenshot()
+                #raise Exception('{}: Cannot locate next page element: {}'.format(self.name, str(e)))
 
             return self.webdriver.find_element_by_css_selector(selector)
 
