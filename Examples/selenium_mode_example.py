@@ -17,7 +17,7 @@ keywords = ['site:*.altsovet.ru -www.altsovet.ru']
 config = {
     'use_own_ip': False,
     #'keywords': keywords,
-    'keyword_file': '/scripts/GoogleScraper/gov_req.txt',
+    'keyword_file': '/scripts/GoogleScraper/Examples/gov2',
     'search_engines': 'google',
     'num_pages_for_keyword': 5,
     'scrape_method': 'selenium',
