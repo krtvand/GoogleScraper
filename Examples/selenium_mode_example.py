@@ -30,9 +30,8 @@ config = {
 
 }
 
-proxies = ['http 194.54.64.90:5093', 'http 194.54.64.90:5094',
-           'http 194.54.64.90:5095', 'http 194.54.64.90:5096',
-           'http 194.54.64.90:5097']
+proxies = ['http 194.54.64.90:5094', 'http 194.54.64.90:5095',
+           'http 194.54.64.90:5096', 'http 194.54.64.90:5097']
 
 with open('proxy', 'w') as f:
     f.write(random.choice(proxies))
